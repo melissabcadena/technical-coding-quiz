@@ -1,0 +1,58 @@
+:root {
+    --light-purple: #7e42f5;
+    --dark-purple: #5828b8;
+}
+
+* {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between; 
+}
+
+.highscore {
+    color: var(--light-purple);
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.timer {
+    font-size: 15px;
+    font-weight:lighter;
+}
+
+.title, .question {
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    text-align: center;
+    margin: auto 15%;
+    font-size: 20px;
+}
+
+.btn {
+    background-color: var(--dark-purple);
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 25px auto auto;
+}
+
+.btn:hover {
+    background-color: var(--light-purple);
+}
+
+.startquiz {
+    text-align: center;
+}
