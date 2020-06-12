@@ -53,6 +53,18 @@ p {
     background-color: var(--light-purple);
 }
 
-.startquiz {
-    text-align: center;
+#startquiz {
+    display: block;
+}
+
+.questions-container {
+    margin: 0 15%;
+}
+
+.question-content {
+    text-align: left;
+}
+
+.question-btn {
+    display: inline;
 }
