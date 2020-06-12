@@ -68,3 +68,10 @@ p {
 .question-btn {
     display: inline;
 }
+
+.correct {
+    border-top: thin;
+    border-color: lightgrey;
+    color: lightgrey;
+    font-style: italic;
+}
