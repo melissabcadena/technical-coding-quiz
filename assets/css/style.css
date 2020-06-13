@@ -69,7 +69,7 @@ p {
     display: inline;
 }
 
-.correct {
+.answer {
     border-top: thin;
     border-color: lightgrey;
     color: lightgrey;

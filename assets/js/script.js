@@ -5,39 +5,72 @@ var questionPageEl = document.querySelector(".question-page");
 var endPageEl = document.querySelector(".end-page");
 var pageContentEl = document.querySelector("main");
 var buttonContainerEl = document.querySelector(".button-container");
+var timerEl = document.querySelector(".timer");
+var timeLeft= 75;
+var count = 0;
+var rightOrWrong = document.createElement("p");
+rightOrWrong.className = "answer";
+var question = document.createElement("h1");
+question.className = "question";
+
+
 
 
 var startQuiz = function() {
-    debugger;
+    //debugger;
     // hide start page
     pageContentEl.removeChild(startPageEl);
 
-    // loop through questions 
-   for (i = 0; i < questionsArray.length; i++) {
+    var timer = setInterval(function() {
+        timerEl.textContent = "Time: " + timeLeft;
+        timeLeft--;
+    
+        if (timeLeft === 0) {
+            // endGame() - need to define
+            console.log("timer is done");
+            clearInterval(timer);
+        }
+    }, 1000);
         
-        // add question to page
-        var question = document.createElement("h1");
-        question.className = "question";
-        question.textContent = questionsArray[i].q;
-        questionPageEl.insertBefore(question, buttonContainerEl);
+    // add question to page
+    question.textContent = questionsArray[count].q;
+    questionPageEl.insertBefore(question, buttonContainerEl);
 
-        // add all four buttons
-        buttonContainerEl.innerHTML = "<button class='btn question-btn'>" + questionsArray[i].a1 + "</button><button class=' btn question-btn'>" + questionsArray[i].a2 + "</ button><button class='btn question-btn'>" + questionsArray[i].a3 + "</button><button class='btn question-btn'>" + questionsArray[i].a4 + "</button>";
+    // add all four buttons
+    buttonContainerEl.innerHTML = "<button class='btn question-btn'>" + questionsArray[count].a1
+     + "</button><button class=' btn question-btn'>" + questionsArray[count].a2
+      + "</ button><button class='btn question-btn'>" + questionsArray[count].a3
+       + "</button><button class='btn question-btn'>" + questionsArray[count].a4 + "</button>";
 
-        // how do I wait for question to be answered to move on to the next question???
-
-        };
+       
+       questionPageEl.appendChild(rightOrWrong)       
+    
 };
 
 var questionAnswered = function (event) {
     var answer = event.target;
-     
-    if (answer.textContent === questionsArray[0].correct) {
-        var correctAnswer = document.createElement("p");
-        correctAnswer.className = "correct";
-        correctAnswer.textContent= "Correct!";
-        questionPageEl.appendChild(correctAnswer);
+    if (!event.target.type) {
+        return
     }
+    
+     
+    if (answer.textContent === questionsArray[count].correct) {
+        rightOrWrong.textContent= "Correct!";
+        
+    }
+    else {
+        rightOrWrong.textContent= "Incorrect!";
+        
+    }
+    count++;
+    if (count === questionsArray.length-1) {
+        endGame();
+    }
+    question.textContent = questionsArray[count].q;
+    buttonContainerEl.innerHTML = "<button class='btn question-btn'>" + questionsArray[count].a1
+     + "</button><button class=' btn question-btn'>" + questionsArray[count].a2
+      + "</ button><button class='btn question-btn'>" + questionsArray[count].a3
+       + "</button><button class='btn question-btn'>" + questionsArray[count].a4 + "</button>";
 }
 
 var questionsArray = [
