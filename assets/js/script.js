@@ -26,9 +26,10 @@ var startQuiz = function() {
         timeLeft--;
     
         if (timeLeft === 0) {
-            // endGame() - need to define
-            console.log("timer is done");
             clearInterval(timer);
+            timerEl.textContent = "Time: 0";
+            endGame();
+            
         }
     }, 1000);
         
@@ -52,19 +53,20 @@ var questionAnswered = function (event) {
     if (!event.target.type) {
         return
     }
-    
      
     if (answer.textContent === questionsArray[count].correct) {
         rightOrWrong.textContent= "Correct!";
+        console.log(answer);
         
     }
     else {
         rightOrWrong.textContent= "Incorrect!";
         timeLeft-=10;
+        console.log(answer);
         
     }
     count++;
-    if (count === questionsArray.length-1) {
+    if (count === questionsArray.length) {
         endGame();
     }
     question.textContent = questionsArray[count].q;
@@ -72,7 +74,12 @@ var questionAnswered = function (event) {
      + "</button><button class=' btn question-btn'>" + questionsArray[count].a2
       + "</ button><button class='btn question-btn'>" + questionsArray[count].a3
        + "</button><button class='btn question-btn'>" + questionsArray[count].a4 + "</button>";
-    rightOrWrong= "";
+}
+
+var endGame = function () {
+    pageContentEl.removeChild(questionPageEl);
+    timerEl.textContent = "Time: 0";
+
 }
 
 var questionsArray = [
@@ -90,7 +97,7 @@ var questionsArray = [
         a2: "2. curly brackets",
         a3: "3. parentheses",
         a4: "4. square brackets", 
-        correct: "a3"
+        correct: "3. parentheses"
     } , 
     {
         q: "Arrays in Javascript can be used to store: ",
@@ -98,7 +105,7 @@ var questionsArray = [
         a2: "2. other arrays", 
         a3: "3. booleans",
         a4: "4. all of the above",
-        correct: "a3"
+        correct: "4. all of the above"
     } , 
     {
         q: "String values must be enclosed within __________ when being assigned to variables.",
@@ -106,7 +113,7 @@ var questionsArray = [
         a2: "2. curly brackets", 
         a3: "3. quotes",
         a4: "4. parentheses",
-        correct: "a3"
+        correct: "3. quotes"
     } , 
     {
         q: "A very useful tool used during development and debugging for printing content to the debugger is: ",
@@ -114,9 +121,9 @@ var questionsArray = [
         a2: "2. Terminal Bash",
         a3: "3. for loops",
         a4: "4. console.log",
-        correct: "a4"
+        correct: "4. console.log"
     }
 ];
 
 startQuizBtnEl.addEventListener("click", startQuiz);
-questionPageEl.addEventListener("click", questionAnswered);
+buttonContainerEl.addEventListener("click", questionAnswered);
