@@ -60,6 +60,7 @@ var questionAnswered = function (event) {
     }
     else {
         rightOrWrong.textContent= "Incorrect!";
+        timeLeft-=10;
         
     }
     count++;
@@ -71,6 +72,7 @@ var questionAnswered = function (event) {
      + "</button><button class=' btn question-btn'>" + questionsArray[count].a2
       + "</ button><button class='btn question-btn'>" + questionsArray[count].a3
        + "</button><button class='btn question-btn'>" + questionsArray[count].a4 + "</button>";
+    rightOrWrong= "";
 }
 
 var questionsArray = [
