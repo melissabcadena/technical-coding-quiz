@@ -84,7 +84,7 @@ p {
     text-align: left;
 }
 
-.end-page .title, .end-page p, .high-score-page .title {
+.end-page .title, .end-page p, .high-score-page .title, .question {
     text-align: left;
     margin: 5% 0;
 }
