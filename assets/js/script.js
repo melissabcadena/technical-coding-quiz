@@ -34,6 +34,7 @@ var startQuiz = function() {
     // hide start page
     pageContentEl.removeChild(startPageEl);
 
+    // create timer 
     timer = setInterval(function() {
         timerEl.textContent = timeLeft;
         timeLeft--;
@@ -61,6 +62,7 @@ var startQuiz = function() {
     
 };
 
+// wait for question answered
 var questionAnswered = function (event) {
 
     // if click is anywhere undefined, return early
@@ -99,7 +101,6 @@ var questionAnswered = function (event) {
 var endGame = function () {
     // remove content from question page
     pageContentEl.removeChild(questionPageEl);
-
 
     // create elements for end game page
     //title
@@ -141,17 +142,18 @@ var highScoreSubmit = function() {
     // pull any already existing high scores from localStorage
     var dataFromLocal = JSON.parse(localStorage.getItem("highScores"));
 
-    // if nothing start empty array
+    // if nothing, start empty array
     if (!dataFromLocal) {
         dataFromLocal = [];
     }
 
-    //save previous high scores to array
+    //if there are previous high scores saved, save previous high scores to array
     dataFromLocal.push(highScoreObj);
 
     // save new high score array to local storage
     localStorage.setItem("highScores", JSON.stringify(dataFromLocal))
 
+    // remove end page to move to high scores page
     pageContentEl.removeChild(endPageEl);
 
     loadHighScoresPage();
@@ -159,13 +161,14 @@ var highScoreSubmit = function() {
 
 var buttonsFunction = function (event) {
     var buttonClicked = event.target;
-    console.log(buttonClicked)
-    
+
+    // if go back button was clicked
     if (buttonClicked.textContent === "Go back") {
         pageContentEl.removeChild(highScorePageEl);
         pageContentEl.appendChild(endPageEl);
         return;
     }
+    // if clear high scores button was pushed
     else {
         // remove high scores
         localStorage.removeItem("highScores");
@@ -173,7 +176,7 @@ var buttonsFunction = function (event) {
         // remove current list w/ high scores
         highScorePageEl.removeChild(highScoreListEl);
 
-        // create new ul
+        // create new ul to show empty list now that scores are erased
         var emptyList = document.createElement("ul")
         var emptyListItem = document.createElement("li")
         emptyListItem.textContent = "No data to show.";
@@ -184,7 +187,7 @@ var buttonsFunction = function (event) {
 }
 
 var loadHighScoresPage = function () {
-    // remove current content from end page
+    // remove header 
     headerEl.remove();
 
     // create elements for high score page
@@ -196,10 +199,8 @@ var loadHighScoresPage = function () {
     //add in high scores from localStorage
     var getScores = localStorage.getItem('highScores');
     getScores = JSON.parse(getScores);
-    console.log(getScores);
 
-    //loop through to add high scores to ul
-    
+    // if nothing saved to localStorage, show empty list
     if (getScores === null) {
 
         var emptyList = document.createElement("li")
