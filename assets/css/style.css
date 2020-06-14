@@ -57,21 +57,67 @@ p {
     display: block;
 }
 
-.questions-container {
-    margin: 0 15%;
+.question-page, .end-page, .high-score-page {
+    margin: 5% 20%;    
 }
 
-.question-content {
-    text-align: left;
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 75%;
+    
 }
 
 .question-btn {
-    display: inline;
+    margin: 5px 0;
+    width: 100%;
+    text-align: left;
+    min-width: 175px;
 }
 
 .answer {
-    border-top: thin;
-    border-color: lightgrey;
+    margin: 10px;
+    border-top: 1px solid lightgray;
     color: lightgrey;
     font-style: italic;
+    text-align: left;
+}
+
+.end-page .title, .end-page p, .high-score-page .title {
+    text-align: left;
+    margin: 5% 0;
+}
+
+label {
+    font-size: 20px;
+    height: 20px;
+    width: 35%;
+}
+
+input {
+    margin: 0 15px 0 0;
+    height: 20px
+}
+
+.initial-submit, .highscore-btn {
+    margin: 0;
+    padding: 3px 20px;
+    border-radius: 5px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 8px;
+    padding: 3px 0;
+    background: #e6e6ff;
+}
+
+.highscore-btn {
+    margin-right: 10px;
+    padding: 5px 10px;
 }
