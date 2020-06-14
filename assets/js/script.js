@@ -20,11 +20,11 @@ question.className = "question";
 var rightOrWrong = document.createElement("p");
 rightOrWrong.className = "answer";
 var initialSubmitBtnEl = document.createElement("button");
+var inputInitialsContainerEl = document.createElement("div");
 initialSubmitBtnEl.className="btn";
 initialSubmitBtnEl.textContent = "Submit";
 var highScoreButtonsEl = document.createElement("div");
 highScoreButtonsEl.className = "high-score-buttons";
-
 
 // start quiz on button click
 var startQuiz = function() {
@@ -110,7 +110,6 @@ var endGame = function () {
     finalScoreEl.textContent = "Your final score is " + timeLeft + ".";
 
     // Input Initials
-    var inputInitialsContainerEl = document.createElement("div");
     inputInitialsContainerEl.innerHTML = "<label for='initials'>Enter intials: </label><input type='text' name='initials' minlength='2' maxlength'2'>";
 
     // add all elements to page
@@ -121,6 +120,37 @@ var endGame = function () {
 };
 
 var highScoreSubmit = function() {
+
+    // save initials input to variable
+    var initialsInput = document.querySelector("input").value;
+
+    // if no initials entered, try again
+    if (!initialsInput || initialsInput.length < 2) {
+        alert("Please enter your initials.");
+        return;
+    }
+    
+    // save high score to object
+    var highScoreObj = {
+        name: initialsInput,
+        score: timeLeft
+    };
+    debugger;
+    // pull any already existing high scores from localStorage
+    var dataFromLocal = [JSON.parse(localStorage.getItem("highScores"))];
+
+    // if nothing start empty array
+    if (!dataFromLocal) {
+        dataFromLocal = [];
+    }
+
+    //save previous high scores to array
+    console.log(dataFromLocal);
+    dataFromLocal.push(highScoreObj);
+
+    // save new high score array to local storage
+    localStorage.setItem("highScores", JSON.stringify(dataFromLocal))
+
     // remove content from end page
     pageContentEl.removeChild(endPageEl);
 
@@ -168,6 +198,7 @@ var buttonsFunction = function (event) {
     }
     
 }
+
 
 var questionsArray = [
     {
