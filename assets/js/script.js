@@ -7,6 +7,7 @@ var endPageEl = document.querySelector(".end-page");
 var pageContentEl = document.querySelector("main");
 var buttonContainerEl = document.querySelector(".button-container");
 var timerEl = document.querySelector(".timer");
+var highScorePageEl = document.querySelector(".high-score-page");
 
 // Timer Variables
 var timeLeft= 75;
@@ -96,10 +97,10 @@ var endGame = function () {
     pageContentEl.removeChild(questionPageEl);
 
     // create elements for end game page
-    //title
-    var endPageTitleEl = document.createElement("h1");
-    endPageTitleEl.className = "title";
-    endPageTitleEl.textContent = "All done!";
+     //title
+     var endPageTitleEl = document.createElement("h1");
+     endPageTitleEl.className = "title";
+     endPageTitleEl.textContent = "All done!";
 
     //p
     var finalScoreEl = document.createElement("p");
@@ -121,11 +122,37 @@ var highScoreSubmit = function() {
     pageContentEl.removeChild(endPageEl);
 
     // create elements for high score page
+    //title
     var highScoreTitleEl = document.createElement("h1");
     highScoreTitleEl.className = "title";
+    highScoreTitleEl.textContent = "High Scores";
 
+    //list of high scores
+    var highScoreListEl = document.createElement("ul");
+    highScoreListEl.className = "high-scores";
 
+    // add in high scores from localStorage
+
+    // buttons container
+    var highScoreButtonsEl = document.createElement("div");
+    highScoreButtonsEl.className = "high-score-buttons";
+    // go back button
+    var goBackButtonEl = document.createElement("button");
+    goBackButtonEl.className = "btn";
+    goBackButtonEl.textContent = "Go back";
+    highScoreButtonsEl.appendChild(goBackButtonEl);
+    // clear high scores button
+    var clearHighScoresBtnEl = document.createElement("button");
+    clearHighScoresBtnEl.className= "btn";
+    clearHighScoresBtnEl.textContent = "Clear High Scores";
+    highScoreButtonsEl.appendChild(clearHighScoresBtnEl);
     
+
+
+    highScorePageEl.appendChild(highScoreTitleEl);
+    highScorePageEl.appendChild(highScoreListEl);    
+    highScorePageEl.appendChild(goBackButtonEl);
+    highScorePageEl.appendChild(highScoreButtonsEl);
 };
 
 var questionsArray = [
