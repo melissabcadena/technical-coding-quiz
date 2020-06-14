@@ -22,6 +22,9 @@ rightOrWrong.className = "answer";
 var initialSubmitBtnEl = document.createElement("button");
 initialSubmitBtnEl.className="btn";
 initialSubmitBtnEl.textContent = "Submit";
+var highScoreButtonsEl = document.createElement("div");
+highScoreButtonsEl.className = "high-score-buttons";
+
 
 // start quiz on button click
 var startQuiz = function() {
@@ -92,9 +95,9 @@ var questionAnswered = function (event) {
 }
 
 var endGame = function () {
+    // // remove content from question page
+        pageContentEl.removeChild(questionPageEl)
 
-    // remove content from question page
-    pageContentEl.removeChild(questionPageEl);
 
     // create elements for end game page
      //title
@@ -132,28 +135,39 @@ var highScoreSubmit = function() {
     highScoreListEl.className = "high-scores";
 
     // add in high scores from localStorage
-
-    // buttons container
-    var highScoreButtonsEl = document.createElement("div");
-    highScoreButtonsEl.className = "high-score-buttons";
+    
     // go back button
     var goBackButtonEl = document.createElement("button");
     goBackButtonEl.className = "btn";
     goBackButtonEl.textContent = "Go back";
-    highScoreButtonsEl.appendChild(goBackButtonEl);
+
+
     // clear high scores button
     var clearHighScoresBtnEl = document.createElement("button");
     clearHighScoresBtnEl.className= "btn";
     clearHighScoresBtnEl.textContent = "Clear High Scores";
-    highScoreButtonsEl.appendChild(clearHighScoresBtnEl);
     
-
-
+    // append all children elements to page and div container
     highScorePageEl.appendChild(highScoreTitleEl);
-    highScorePageEl.appendChild(highScoreListEl);    
-    highScorePageEl.appendChild(goBackButtonEl);
+    highScorePageEl.appendChild(highScoreListEl);  
+    highScoreButtonsEl.appendChild(clearHighScoresBtnEl);
+    highScoreButtonsEl.appendChild(goBackButtonEl);
     highScorePageEl.appendChild(highScoreButtonsEl);
+
 };
+
+var buttonsFunction = function (event) {
+    var buttonClicked = event.target;
+    
+    if (buttonClicked.textContent = "Go Back") {
+        pageContentEl.removeChild(highScorePageEl);
+        pageContentEl.appendChild(endPageEl);
+    }
+    else {
+        //localStorage.removeItem();
+    }
+    
+}
 
 var questionsArray = [
     {
@@ -201,3 +215,4 @@ var questionsArray = [
 startQuizBtnEl.addEventListener("click", startQuiz);
 buttonContainerEl.addEventListener("click", questionAnswered);
 initialSubmitBtnEl.addEventListener("click", highScoreSubmit);
+highScoreButtonsEl.addEventListener("click", buttonsFunction);
