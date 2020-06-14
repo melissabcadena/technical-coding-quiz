@@ -1,3 +1,4 @@
+// DOM Elements
 var startQuizBtnEl = document.querySelector("#startquiz");
 var titleEl = document.querySelector(".title");
 var startPageEl = document.querySelector(".start-page");
@@ -6,22 +7,28 @@ var endPageEl = document.querySelector(".end-page");
 var pageContentEl = document.querySelector("main");
 var buttonContainerEl = document.querySelector(".button-container");
 var timerEl = document.querySelector(".timer");
+
+// Timer Variables
 var timeLeft= 75;
 var count = 0;
-var rightOrWrong = document.createElement("p");
-rightOrWrong.className = "answer";
+var timer="";
+
+// Elements to add to the page at a later time
 var question = document.createElement("h1");
 question.className = "question";
+var rightOrWrong = document.createElement("p");
+rightOrWrong.className = "answer";
+var initialSubmitBtnEl = document.createElement("button");
+initialSubmitBtnEl.className="btn";
+initialSubmitBtnEl.textContent = "Submit";
 
-
-
-
+// start quiz on button click
 var startQuiz = function() {
     //debugger;
     // hide start page
     pageContentEl.removeChild(startPageEl);
 
-    var timer = setInterval(function() {
+    timer = setInterval(function() {
         timerEl.textContent = "Time: " + timeLeft;
         timeLeft--;
     
@@ -44,16 +51,19 @@ var startQuiz = function() {
        + "</button><button class='btn question-btn'>" + questionsArray[count].a4 + "</button>";
 
        
-       questionPageEl.appendChild(rightOrWrong)       
+    questionPageEl.appendChild(rightOrWrong);      
     
 };
 
 var questionAnswered = function (event) {
+
+    // if click is anywhere undefined, return early
     var answer = event.target;
     if (!event.target.type) {
         return
     }
-     
+    
+    // if the user answer matches correct answer
     if (answer.textContent === questionsArray[count].correct) {
         rightOrWrong.textContent= "Correct!";
         console.log(answer);
@@ -65,8 +75,12 @@ var questionAnswered = function (event) {
         console.log(answer);
         
     }
+    // increase count
     count++;
+
+    // if we have gone through all the questions, stop timer and end game
     if (count === questionsArray.length) {
+        clearInterval(timer);
         endGame();
     }
     question.textContent = questionsArray[count].q;
@@ -77,10 +91,42 @@ var questionAnswered = function (event) {
 }
 
 var endGame = function () {
-    pageContentEl.removeChild(questionPageEl);
-    timerEl.textContent = "Time: 0";
 
-}
+    // remove content from question page
+    pageContentEl.removeChild(questionPageEl);
+
+    // create elements for end game page
+    //title
+    var endPageTitleEl = document.createElement("h1");
+    endPageTitleEl.className = "title";
+    endPageTitleEl.textContent = "All done!";
+
+    //p
+    var finalScoreEl = document.createElement("p");
+    finalScoreEl.textContent = "Your final score is " + timeLeft + ".";
+
+    // Input Initials
+    var inputInitialsContainerEl = document.createElement("div");
+    inputInitialsContainerEl.innerHTML = "<label for='initials'>Enter intials: </label><input type='text' name='initials' minlength='2' maxlength'2'>";
+
+    // add all elements to page
+    endPageEl.appendChild(endPageTitleEl);
+    endPageEl.appendChild(finalScoreEl);
+    endPageEl.appendChild(inputInitialsContainerEl);
+    endPageEl.appendChild(initialSubmitBtnEl);
+};
+
+var highScoreSubmit = function() {
+    // remove content from end page
+    pageContentEl.removeChild(endPageEl);
+
+    // create elements for high score page
+    var highScoreTitleEl = document.createElement("h1");
+    highScoreTitleEl.className = "title";
+
+
+    
+};
 
 var questionsArray = [
     {
@@ -127,3 +173,4 @@ var questionsArray = [
 
 startQuizBtnEl.addEventListener("click", startQuiz);
 buttonContainerEl.addEventListener("click", questionAnswered);
+initialSubmitBtnEl.addEventListener("click", highScoreSubmit);
