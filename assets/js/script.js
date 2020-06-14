@@ -25,10 +25,12 @@ initialSubmitBtnEl.className="btn";
 initialSubmitBtnEl.textContent = "Submit";
 var highScoreButtonsEl = document.createElement("div");
 highScoreButtonsEl.className = "high-score-buttons";
+//list of high scores
+var highScoreListEl = document.createElement("ul");
+highScoreListEl.className = "high-scores";
 
 // start quiz on button click
 var startQuiz = function() {
-    //debugger;
     // hide start page
     pageContentEl.removeChild(startPageEl);
 
@@ -135,9 +137,8 @@ var highScoreSubmit = function() {
         name: initialsInput,
         score: timeLeft
     };
-    debugger;
     // pull any already existing high scores from localStorage
-    var dataFromLocal = [JSON.parse(localStorage.getItem("highScores"))];
+    var dataFromLocal = JSON.parse(localStorage.getItem("highScores"));
 
     // if nothing start empty array
     if (!dataFromLocal) {
@@ -145,7 +146,6 @@ var highScoreSubmit = function() {
     }
 
     //save previous high scores to array
-    console.log(dataFromLocal);
     dataFromLocal.push(highScoreObj);
 
     // save new high score array to local storage
@@ -160,11 +160,17 @@ var highScoreSubmit = function() {
     highScoreTitleEl.className = "title";
     highScoreTitleEl.textContent = "High Scores";
 
-    //list of high scores
-    var highScoreListEl = document.createElement("ul");
-    highScoreListEl.className = "high-scores";
+    //add in high scores from localStorage
+    var getScores = localStorage.getItem('highScores');
+    getScores = JSON.parse(getScores);
+    console.log(getScores);
 
-    // add in high scores from localStorage
+    //loop through to add high scores to ul
+    for (var i=0; i < getScores.length; i++) {
+        var scoresListItem = document.createElement("li")
+        scoresListItem.textContent = ([i+1]) + ". " + getScores[i].name + " - " + getScores[i].score;
+        highScoreListEl.appendChild(scoresListItem);
+    };
     
     // go back button
     var goBackButtonEl = document.createElement("button");
@@ -188,17 +194,18 @@ var highScoreSubmit = function() {
 
 var buttonsFunction = function (event) {
     var buttonClicked = event.target;
+    console.log(buttonClicked)
     
-    if (buttonClicked.textContent = "Go Back") {
+    if (buttonClicked.textContent === "Go back") {
         pageContentEl.removeChild(highScorePageEl);
         pageContentEl.appendChild(endPageEl);
     }
     else {
-        //localStorage.removeItem();
+        localStorage.removeItem("highScores");
+        return;
     }
     
 }
-
 
 var questionsArray = [
     {
